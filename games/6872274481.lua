@@ -1,10 +1,3 @@
--- Exported from Faulmor
--- title: aa
--- format: faulmor.own-source
--- exported_at: 2026-09-17T02:39:19.512Z
-
--- bedwars ingame
-
 local _runCount = 0
 local _runBusy = false
 local run = function(func)
