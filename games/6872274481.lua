@@ -10,13 +10,13 @@ local run = function(func)
 		local ok, err = pcall(func)
 		_runBusy = false
 		if not ok then
-			warn('[richify] module failed to load: ' .. tostring(err))
+			warn('[euph] module failed to load: ' .. tostring(err))
 		end
 		return
 	end
 	local ok, err = pcall(func)
 	if not ok then
-		warn('[richify] module failed to load: ' .. tostring(err))
+		warn('[euph] module failed to load: ' .. tostring(err))
 	end
 end
 task.wait()
@@ -174,7 +174,7 @@ setmetatable(remotes, {
 			task.delay(10, function()
 				if rawget(remotes, key) == nil then
 					pcall(function()
-						vape.Notify('[richify] remote "' .. tostring(key) .. '" changed or removed some features may not work bru (dm @5qvx for fix)', 6)
+						vape.Notify('[euph] remote "' .. tostring(key) .. '" changed or removed some features may not work bru (dm @5qvx for fix)', 6)
 					end)
 				end
 			end)
@@ -7346,7 +7346,7 @@ run(function()
 		end)
 
 		if not gok then
-			warn('[richify] gloop failed: '..tostring(gerr))
+			warn('[euph] gloop failed: '..tostring(gerr))
 			fhRestoreSword()
 			fhBusy = false
 			return false
