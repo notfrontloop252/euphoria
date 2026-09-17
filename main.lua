@@ -73,7 +73,7 @@ local function downloadFile(path, func)
 		local success = false
 		for attempt = 1, 3 do
 			local suc, result = pcall(function()
-				return game:HttpGet('https://raw.githubusercontent.com/notfrontloop252/euphoria/' .. readfile('aerov4/profiles/commit.txt') .. '/' .. select(1, path:gsub('aerov4/', '')), true)
+				return game:HttpGet('https://raw.githubusercontent.com/notfrontloop252/euphoria/' .. readfile('euphoria/profiles/commit.txt') .. '/' .. select(1, path:gsub('euphoria/', '')), true)
 			end)
 			if suc and result ~= '404: Not Found' then
 				res = result
@@ -94,18 +94,18 @@ local function downloadFile(path, func)
 end
 
 local function migrateProfiles()
-	if isfile('aerov4/profiles/migrated_placeid.txt') then return end
+	if isfile('euphoria/profiles/migrated_placeid.txt') then return end
 
 	local oldId = tostring(game.GameId)
 	local newId = tostring(game.PlaceId)
 
 	if oldId == newId then
-		pcall(writefile, 'aerov4/profiles/migrated_placeid.txt', 'done')
+		pcall(writefile, 'euphoria/profiles/migrated_placeid.txt', 'done')
 		return
 	end
 
 	local suffix = oldId .. '.txt'
-	for _, path in ipairs(listfiles('aerov4/profiles')) do
+	for _, path in ipairs(listfiles('euphoria/profiles')) do
 		local name = path:gsub('\\', '/')
 		if name:sub(-#suffix) == suffix then
 			local newPath = name:sub(1, -#suffix - 1) .. newId .. '.txt'
@@ -115,8 +115,8 @@ local function migrateProfiles()
 		end
 	end
 
-	if isfolder('aerov4/profiles/premade') then
-		for _, path in ipairs(listfiles('aerov4/profiles/premade')) do
+	if isfolder('euphoria/profiles/premade') then
+		for _, path in ipairs(listfiles('euphoria/profiles/premade')) do
 			local name = path:gsub('\\', '/')
 			if name:sub(-#suffix) == suffix then
 				local newPath = name:sub(1, -#suffix - 1) .. newId .. '.txt'
@@ -127,7 +127,7 @@ local function migrateProfiles()
 		end
 	end
 
-	pcall(writefile, 'aerov4/profiles/migrated_placeid.txt', 'done')
+	pcall(writefile, 'euphoria/profiles/migrated_placeid.txt', 'done')
 end
 
 pcall(migrateProfiles)
@@ -191,16 +191,16 @@ local function finishLoading()
 	end
 end
 
-if not isfile('aerov4/profiles/gui.txt') then
-	writefile('aerov4/profiles/gui.txt', 'new')
+if not isfile('euphoria/profiles/gui.txt') then
+	writefile('euphoria/profiles/gui.txt', 'new')
 end
-local gui = readfile('aerov4/profiles/gui.txt')
+local gui = readfile('euphoria/profiles/gui.txt')
 
-if not isfolder('aerov4/assets/' .. gui) then
-	makefolder('aerov4/assets/' .. gui)
+if not isfolder('euphoria/assets/' .. gui) then
+	makefolder('euphoria/assets/' .. gui)
 end
 
-local guiSource = downloadFile('aerov4/guis/' .. gui .. '.lua')
+local guiSource = downloadFile('euphoria/guis/' .. gui .. '.lua')
 local guiFunc, guiErr = loadstring(guiSource, 'gui')
 if not guiFunc then
 	local errMsg = tostring(guiErr)
@@ -222,10 +222,10 @@ if not guiFunc then
 end
 vape = guiFunc()
 if not vape then
-	error('[aerov4] GUI returned nil file may be corrupted try deleting aerov4/guis/' .. gui .. '.lua and reinjecting.')
+	error('[aerov4] GUI returned nil file may be corrupted try deleting euphoria/guis/' .. gui .. '.lua and reinjecting.')
 end
 if not vape.Load then
-	if delfile then pcall(function() delfile('aerov4/guis/' .. gui .. '.lua') end) end
+	if delfile then pcall(function() delfile('euphoria/guis/' .. gui .. '.lua') end) end
 	error('[aerov4] gui file corrupted (missing load) reinject..')
 end
 if not vape.Init and not vape.Load then
@@ -256,11 +256,11 @@ if getgenv().Closet then
 end
 
 if not shared.VapeIndependent then
-	loadstring(downloadFile('aerov4/games/universal.lua'), 'universal')()
+	loadstring(downloadFile('euphoria/games/universal.lua'), 'universal')()
 	local gameFileId = (game.GameId == 2619619496) and (game.PlaceId == 6872265039 and 6872265039 or 6872274481) or game.PlaceId
 
-	if isfile('aerov4/games/' .. gameFileId .. '.lua') then
-		local gameSrc = downloadFile('aerov4/games/' .. gameFileId .. '.lua')
+	if isfile('euphoria/games/' .. gameFileId .. '.lua') then
+		local gameSrc = downloadFile('euphoria/games/' .. gameFileId .. '.lua')
 		local gameFunc, gameErr = loadstring(gameSrc, tostring(gameFileId))
 		if not gameFunc then
 			local msg = tostring(gameErr)
@@ -281,10 +281,10 @@ if not shared.VapeIndependent then
 	else
 		if not shared.VapeDeveloper then
 			local suc, res = pcall(function()
-				return game:HttpGet('https://raw.githubusercontent.com/notfrontloop252/euphoria/' .. readfile('aerov4/profiles/commit.txt') .. '/games/' .. gameFileId .. '.lua', true)
+				return game:HttpGet('https://raw.githubusercontent.com/notfrontloop252/euphoria/' .. readfile('euphoria/profiles/commit.txt') .. '/games/' .. gameFileId .. '.lua', true)
 			end)
 			if suc and res and res ~= '404: Not Found' then
-				local path = 'aerov4/games/' .. gameFileId .. '.lua'
+				local path = 'euphoria/games/' .. gameFileId .. '.lua'
 				if not isfile(path) then
 					writefile(path, '--This watermark is used to delete the file if its cached, remove it to make the file persist after vape updates.\n' .. res)
 				end
