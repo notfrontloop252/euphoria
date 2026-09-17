@@ -4551,7 +4551,7 @@ run(function()
 	end
 	
 	local ProjectileAimbot; ProjectileAimbot = vape.Categories.Blatant:CreateModule({
-		Name = 'RichifyPA',
+		Name = 'EuphPA',
 		Disabled = not canDebug,
 		Function = function(callback)
 			if callback then
