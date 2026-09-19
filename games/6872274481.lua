@@ -6607,8 +6607,8 @@ run(function()
 	local anims, AnimDelay, AnimTween, armC0 = vape.Libraries.auraanims, tick()
 	local FROZEN_THRESHOLD = 10
 	local FASTHITS_BUILD = 'legacy-good-ka-first-v1'
-	local HIT_PERIOD = 0.214
-	local SERVER_FLOOR = 0.214
+	local HIT_PERIOD = 0.241
+	local SERVER_FLOOR = 0.234
 	local KILLAURA_RATE_LEAD = 0.001
 	local KA_BACKOFF_STEP = 0
 	local KA_BACKOFF_MAX = 0
