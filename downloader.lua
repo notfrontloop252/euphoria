@@ -31,7 +31,7 @@ local function wipeFolder(path)
 	end
 end
 
-for _, folder in {'aerov4', 'euphoria/games', 'euphoria/profiles', 'euphoria/assets', 'euphoria/libraries', 'euphoria/guis'} do
+for _, folder in {'richspec', 'euphoria/games', 'euphoria/profiles', 'euphoria/assets', 'euphoria/libraries', 'euphoria/guis'} do
 	if not isfolder(folder) then makefolder(folder) end
 end
 
@@ -96,7 +96,7 @@ if not shared.VapeDeveloper then
 		end
 	end)
 	if commit ~= 'main' and (isfile('euphoria/profiles/commit.txt') and readfile('euphoria/profiles/commit.txt') or '') ~= commit then
-		wipeFolder('aerov4')
+		wipeFolder('richspec')
 		wipeFolder('euphoria/games')
 		wipeFolder('euphoria/guis')
 		pcall(function() if isfile('euphoria/guis/new.lua') then delfile('euphoria/guis/new.lua') end end)
